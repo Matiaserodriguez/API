@@ -18,7 +18,7 @@ Puedes encontrar una colección de Postman [aquí](https://www.postman.com/satel
 
 3. GET `/api/userslist`: Debe enviarse el JWT recibido como respuesta de la llamada HTTP del 2do endpoint.
 
-4. GET `/api/secreteroute`: Endpoint que existe pero solo accesible a través de una llamada al endpoint 3, como se solicitó.
+4. GET `/api/secretroute`: Endpoint que existe pero solo accesible a través de una llamada al endpoint 3, como se solicitó.
 
 ## Inicio rápido
 
@@ -26,7 +26,7 @@ Para ejecutar la API localmente:
 
 1. Clonar el repositorio: `git clone https://github.com/Matiaserodriguez/API`
 
-2. Levantar docker local una vez parado en la carpeta principal: `docker-compose up`
+2. Levantar docker local una vez parado en la carpeta principal: `docker-compose up --build`
 
 ## Tecnologías utilizadas
 
