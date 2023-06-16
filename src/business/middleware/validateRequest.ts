@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 
-import { classUUID } from "../../factory";
+import { classUUID } from "../../randomUUID";
 
 
 export const validateRequest = (req: Request, res: Response, next: NextFunction) => {

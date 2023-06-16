@@ -3,11 +3,14 @@ import axios from 'axios';
 
 import { Request, Response } from "express";
 import User from "../model/Users";
-import { IUser } from 'logIn/model/interface/User.interface'
+import { IUser } from '../model/interface/User.interface'
 import { environmentalVariables as ENV } from '../../env'
-import { classUUID } from '../../factory';
+import { classUUID } from '../../randomUUID';
 import { Error } from 'mongoose';
+import { MongoDBFactory } from '../../MongoFactory'
 
+
+const MONGO = new MongoDBFactory();
 
 export const signup = async (req: Request, res: Response) => {
     const user: IUser = new User({
@@ -16,8 +19,8 @@ export const signup = async (req: Request, res: Response) => {
         password: req.body.password,
     });
     try{
-        user.password = await user.encryptPassword(user.password);
-        const userSaved = await user.save();
+        user.password = await MONGO.encryptUserPassword(user);
+        const userSaved = await MONGO.saveUser(user);
         console.log('userSaved');
         console.log(userSaved);
         const returnCreation =  {
@@ -31,11 +34,10 @@ export const signup = async (req: Request, res: Response) => {
     }
 }
 
-
 export const signin = async (req: Request, res: Response) => {
-    const user = await User.findOne({email: req.body.email});
+    const user = await MONGO.findOneUser(req.body.email);
     if(user) {
-        const correctPassword: boolean = await user.validatePassword(req.body.password);
+        const correctPassword: boolean = await MONGO.validateUserPassword(user, req.body.password);
         if (!correctPassword) return res.status(400).json('Email or password incorrect');
         const token = jwt.sign({_id: user._id}, ENV.secret_key, {
         // expires in 1 hour
