@@ -8,7 +8,7 @@ La API está desplegada en un servidor EC2 de AWS y se puede ejecutar localmente
 
 ## Colección de Postman
 
-Puedes encontrar una colección de Postman [aquí](https://www.postman.com/satellite-cosmologist-72342374/workspace/conexa/collection/14655417-409a11fa-f14d-4923-9a85-8fb0bd923c04?action=share&creator=14655417) para realizar pruebas rápidas.
+Creé una colección de Postman [acá](https://www.postman.com/satellite-cosmologist-72342374/workspace/conexa/collection/14655417-409a11fa-f14d-4923-9a85-8fb0bd923c04?action=share&creator=14655417) para realizar pruebas rápidas.
 
 ## Endpoints locales
 
