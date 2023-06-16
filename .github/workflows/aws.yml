@@ -1,0 +1,39 @@
+name: Build y Deploy de Docker a EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+#First we will see the application build or not , then we will deploy in EC2
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the docker_compose
+      run: docker-compose up -d --build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy challenge conexa in EC2 instance
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.AWS_PROD_HOST }}
+            USER_NAME : ${{ secrets.AWS_PROD_USER }}
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            #Now we have got the access of EC2 and we will start the deploy
+            cd /home/ec2-user/API &&
+            git fetch &&
+            git pull origin main &&
+            git checkout main &&
+            docker-compose up -- build -d --force-recreate
+          '
