@@ -35,5 +35,5 @@ jobs:
             git fetch &&
             git pull origin main &&
             git checkout main &&
-            docker-compose up --build -d --force-recreate
+            sudo docker-compose up --build -d --force-recreate
           '
