@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    container_name: API
+    container_name: API_conexa
     volumes:
       - .:/app
     restart: always
@@ -9,11 +9,11 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - mongo
+      - mongodb_conexa
 
-  mongo:
+  mongodb_conexa:
     image: mongo
-    container_name: mongo
+    container_name: mongodb_conexa
     ports:
       - 27017:27017
     volumes:
